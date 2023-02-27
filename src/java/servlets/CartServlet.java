@@ -1,7 +1,5 @@
 package servlets;
-
 import domain.*;
-
 import java.util.ArrayList;
 import java.io.IOException;
 import javax.servlet.ServletContext;
@@ -10,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 public class CartServlet extends HttpServlet {
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext sc = getServletContext();
@@ -85,11 +81,9 @@ public class CartServlet extends HttpServlet {
             
             url = "/cart.jsp";
         }
-
         sc.getRequestDispatcher(url)
                 .forward(request, response);
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -104,7 +98,6 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -118,7 +111,6 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
@@ -128,5 +120,4 @@ public class CartServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
