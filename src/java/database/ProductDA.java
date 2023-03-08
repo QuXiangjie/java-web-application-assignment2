@@ -1,52 +1,56 @@
 package database;
+
 import domain.Product;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+
 public class ProductDA {
+
     private static ArrayList<Product> products = new ArrayList<Product>(5);
-    
+
     public static void add(Product p) {
         products.add(p);
     }
-    
-    public static Product find (String code) {
+
+    public static Product find(String code) {
+        products.clear();
         for (int i = 0; i < products.size(); i++) {
-            if (code.equals(products.get(i).getCode()))
+            if (code.equals(products.get(i).getCode())) {
                 return products.get(i);
+            }
         }
         return null;
     }
-    
+
     public static ArrayList<Product> getProducts() {
         return products;
     }
-    
+
     public static void init() {
-        if (products.size() <= 0) {
-            Product p;
-            
-            p = new Product();
-            p.setCode("8601");
-            p.setDescription("86 (the band) - True Life Songs and Pictures");
-            p.setPrice(14.95);
-            p.add();
-            
-            p = new Product();
-            p.setCode("pf01");
-            p.setDescription("Paddlefoot - The first CD");
-            p.setPrice(12.95);
-            p.add();
-            
-            p = new Product();
-            p.setCode("pf02");
-            p.setDescription("Paddlefoot - The second CD");
-            p.setPrice(14.95);
-            p.add();
-            
-            p = new Product();
-            p.setCode("jr01");
-            p.setDescription("Joe Rut - Genuine Wood Grained Finish");
-            p.setPrice(14.95);
-            p.add();
+        try {
+            Product p = null;
+
+            Connection connection = (Connection) DriverManager.getConnection("jdbc:derby://localhost:1527/AssignmentDB", "CIS640", "cis640");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs;
+
+            String sql = "Select Code, Description, Price "
+                    + "from Product";
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                p = new Product();
+                p.setCode(rs.getString(1));
+                p.setDescription(rs.getString(2));
+                p.setPrice(rs.getDouble(3));
+                p.add();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

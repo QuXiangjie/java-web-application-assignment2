@@ -6,7 +6,7 @@
         <title>Shop</title>
         <link rel="stylesheet" href="styles/main.css" type="text/css"/>
     </head>
-    
+
     <body>
         <h1>CD list</h1>
         <table>
